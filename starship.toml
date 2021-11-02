@@ -1,0 +1,28 @@
+add_newline = false
+scan_timeout = 10
+
+
+[character]
+success_symbol = "[❯❯❯](bold #FF3CFF)"
+error_symbol = "[❯❯❯](bold red)"
+
+
+[cmd_duration]
+min_time = 500
+format = "[$duration](bold yellow) "
+
+
+[line_break]
+disabled = true
+
+
+[directory]
+truncation_length = 2
+truncation_symbol = "../"
+read_only = " 🔒"
+style = "bold #FF0FF0"
+disabled = false
+
+
+
+
