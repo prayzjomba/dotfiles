@@ -1,11 +1,16 @@
-zoom_out J Down
-zoom_in K Up
-zoom_fit k
-zoom_default j
+zoom_out j Down
+zoom_in k Up
+zoom_fit u
+zoom_fill F
+zoom_default i
+
+scroll_left H
+scroll_down J
+scroll_up K
+scroll_right L
 
 next_img l Right
 prev_img h Left
-close u
 
 delete D
 

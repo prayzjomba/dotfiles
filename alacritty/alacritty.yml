@@ -1,4 +1,4 @@
-# Configuration for Alacritty, the GPU enhanced terminal emulator.
+ # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
 # Import additional configuration files
 #
@@ -25,6 +25,7 @@ env:
   #TERM: alacritty
 
 window:
+  opacity: 0.45
   # Window dimensions (changes require restart)
   #
   # Number of lines/columns (not pixels) in the terminal. The number of columns
@@ -47,8 +48,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 2
-    y: 0
+    x: 5
+    y: 5
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -113,10 +114,12 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: monospace
-    family: 'Source Code Pro'
+    #family: 'Source Code Pro'
+    #family: 'SauceCodePro Nerd Font Mono'
+    family: 'SauceCodePro Nerd Font'
 
     # The `style` can be specified to pick a specific face.
-    style: Bold
+  style: bold italic
 
   # Bold font face
   #bold:
@@ -152,7 +155,7 @@ font:
     #style: Bold Italic
 
   # Point size
-  size: 10.0
+  size: 9.5
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -181,8 +184,9 @@ font:
 colors:
   # Default colors
   primary:
-    background: '#0A283D'
-    foreground: '#2DA6FF'
+    background: '#1E1638'
+    # foreground: '#A667E6'
+    foreground: '#9167E6'
 
     # Bright and dim foreground colors
     #
@@ -359,7 +363,8 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-background_opacity: 0.45
+# background_opacity: 0.45
+opacity: 0.45
 
 selection:
   # This string contains all characters that are used as separators for
@@ -724,6 +729,10 @@ cursor:
 # in the order they were defined in.
 key_bindings:
       - { key: Return,   mods: Control|Shift, action: SpawnNewInstance }
+      - { key: H,        mods: Control|Shift, chars: "\x1b[72;5u"     }
+      - { key: J,        mods: Control|Shift, chars: "\x1b[74;5u"     }
+      - { key: K,        mods: Control|Shift, chars: "\x1b[75;5u"     }
+      - { key: L,        mods: Control|Shift, chars: "\x1b[76;5u"     }
 
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
