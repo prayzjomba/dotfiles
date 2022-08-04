@@ -1,0 +1,194 @@
+
+# Configured by (Prayz Jomba)
+# I used 'ALT' instead of 'SUPER' for MOD
+# Don't judge me, i came from i3
+
+
+###################################
+##          Volume Keys          ##
+###################################
+XF86AudioRaiseVolume
+	amixer set Master 2%+           # volume up
+
+XF86AudioLowerVolume
+	amixer set Master 2%-           # volume down
+
+XF86AudioMute
+	amixer set Master toggle        # mute / unmute
+
+
+############################
+##         BSPWM          ##
+############################
+alt + ctrl + q
+	bspc quit			           # quit bspwm
+
+alt + shift + r
+	bspc wm -r			         # restart bspwm
+
+alt + Escape
+	pkill -USR1 -x sxhkd		 # reload sxhkd
+
+alt + {_,shift + }q
+	bspc node -{c,k}		     # close and kill
+
+
+##########################
+##     state/flags      ##
+##########################
+
+# MONOCLE/FULLSCREEN TOGGLE
+alt + f
+	bspc desktop -l next && for i in $(bspc query -N -n '.!focused.window' -d focused);do bspc node $i -g hidden; done     
+  
+# SET THE WINDOW STATE (alt + t,alt + s,alt + m)
+alt + {t,shift + t,s,m}
+	bspc node -t {tiled,\~pseudo_tiled,\~floating,\~fullscreen}
+
+# SET THE NODE FLAGS 
+super + ctrl + {m,l,s,p}
+	bspc node -g {marked,locked,sticky,private}
+
+
+#####################
+##      focus      ##
+#####################
+
+# FOCUS FLOATING/LAST WINDOW IN THE CURRENT DESKTOP
+alt + @space
+  bspc node -f {any.floating.local,last.local}
+
+# FOCUS THE NODE IN THE GIVEN DIRECTION
+alt + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+# FOCUS THE NODE IN THE GIVEN DIRECTION WITH ARROW KEYS
+alt + {Left,Down,Up,Right}
+	bspc node -f {west,south,north,east}
+
+# FOCUS THE NODE FOR THE GIVEN PATH JUMP
+alt + {a,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# FOCUS THE NEXT/PREVIOUS WINDOW IN THE CURRENT DESKTOP
+alt + {_,shift + }x
+	bspc node -f {next,prev}.local.!hidden.window
+
+# FOCUS THE NEXT/PREVIOUS DESKTOP IN THE CURRENT MONITOR
+alt + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# FOCUS THE LAST NODE/DESKTOP
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# FOCUS THE OLDER OR NEWER NODE IN THE FOCUS HISTORY
+super + shift + {comma,period}
+  bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# FOCUS OR SEND TO THE GIVEN DESKTOP
+alt + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+
+
+##########################
+##      preselect       ##
+##########################
+
+# PRESELECT VERTICAL
+alt + c
+	{bspc node -p south, bspc node -p north, bspc node -p cancel}
+
+# PRESELECT HORIZONTAL
+alt + v
+	{bspc node -p east, bspc node -p west, bspc node -p cancel}
+
+# PRESELECT THE RATIO
+alt + ctrl + {1-9}
+	bspc node -o 0.{1-9}			
+
+#CANCEL THE PRESELECTION FOR THE FOCUSED NODE
+alt + ctrl + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+
+############################
+##     move/swap node     ##
+############################
+
+# SWAP/MOVE NODE
+alt + shift + {h,j,k,l}
+	bspc node -s {west,south,north,east}
+
+# SWAP/MOVE NODE WITH ARROW KEYS 
+alt + shift + {Left,Down,Up,Right}
+	bspc node -s {west,south,north,east}
+
+# SWAP MARKED NODE 
+super + s
+  bspc node -s newest.marked.local -n newest.!automatic.local
+
+
+# SEND THE NEWEST MARKED NODE TO THE NEWEST PRESELECTED NODE
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# SEND THE NEWEST MARKED NODE TO THE NEWEST PRESELECTED NODE
+super + shift + y
+	bspc node -n last.!automatic
+
+# SWAP THE CURRENT NODE AND THE BIGGEST WINDOW
+alt + g
+	bspc node -s {biggest.window.local,focused.local} || bspc node -s last.local
+
+# MOVE MARKED NODE TO CURRENT AS A CHILD
+super + m
+  bspc node -p south && bspc node newest.marked.local -n newest.!automatic.local
+
+
+
+##########################
+##     rotate/switch    ##
+##########################
+alt + e
+	bspc node @parent -R 90
+alt + shift + e
+	bspc node @parent -R -90
+alt + w
+	bspc node @parent -R {180,-180}
+
+
+
+##########################
+##     move/resize      ##
+##########################
+
+# RESIZE OUTWARD
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}	
+
+# RESIZE INWARD
+super + alt + shift + {h,j,k,l}
+	bspc node -z {left 20 0,bottom 0 -20,top 0 20,right -20 0}	
+
+# MOVE FLOATING WINDOW
+super + shift + {h,j,k,l}
+  if [[ $(bspc query -N -n  focused.window.floating) ]];then bspc node -v {-15 0,0 15,0 -15,15 0}; else bspc node -f last.floating.local && bspc node -v {-15 0,0 15,0 -15,15 0}; fi	
+
+
+
+# ALACRITTY - terminal
+alt + Return				
+	alacritty			          
+
+# DMENU
+alt + d
+	dmenu_run
+
+# FIREFOX
+super + f
+	firefox
+
